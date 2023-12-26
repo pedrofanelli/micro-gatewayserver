@@ -37,6 +37,13 @@ public class FilterUtils {
 		}
 	}
 	
+	/**
+	 * Setea en el Header de una request el valor del Correlation ID pasado como parámetro
+	 * 
+	 * @param exchange
+	 * @param correlationId
+	 * @return
+	 */
 	public ServerWebExchange setCorrelationId(ServerWebExchange exchange, String correlationId) {
 		return this.setRequestHeader(exchange, CORRELATION_ID, correlationId);
 	}

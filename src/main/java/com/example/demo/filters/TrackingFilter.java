@@ -1,5 +1,7 @@
 package com.example.demo.filters;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,14 @@ public class TrackingFilter implements GlobalFilter {
 		HttpHeaders requestHeaders = exchange.getRequest().getHeaders(); // extraemos Headers de request
 		if (isCorrelationIdPresent(requestHeaders)) {
 			logger.debug("tmx-correlation-id found in tracking filter: {}. ", 
-					filterUtils.getCorrelationId(requestHeaders));
+					filterUtils.getCorrelationId(requestHeaders)); // logueamos si está presente (parte de cadena de microservicios ya iniciada)
 		} else {
-			String correlationID = generateCorrelationId();
-			exchange = filterUtils.setCorrelationId(exchange, correlationID);
-			logger.debug("tmx-correlation-id generated in tracking filter: {}.", correlationID);
+			String correlationID = generateCorrelationId(); // lo generamos
+			exchange = filterUtils.setCorrelationId(exchange, correlationID); // seteamos en Header, para eso pasamos exchange y el ID
+			logger.debug("tmx-correlation-id generated in tracking filter: {}.", correlationID); // logueamos el ID generado
 		}
 		
-		return chain.filter(exchange);
+		return chain.filter(exchange); //CONTINUA AL SIGUIENTE FILTRO
 	}
 	
 	private boolean isCorrelationIdPresent(HttpHeaders requestHeaders) {
@@ -45,7 +47,7 @@ public class TrackingFilter implements GlobalFilter {
 	}
 
 	private String generateCorrelationId() {
-		return java.util.UUID.randomUUID().toString();
+		return UUID.randomUUID().toString();
 	}
 	
 	
