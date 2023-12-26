@@ -22,8 +22,8 @@ public class TrackingFilter implements GlobalFilter {
 	FilterUtils filterUtils;
 	
 	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) { // se ejecuta cada vez que la request pasa por el filtro
+		HttpHeaders requestHeaders = exchange.getRequest().getHeaders(); // extraemos Headers de request
 		if (isCorrelationIdPresent(requestHeaders)) {
 			logger.debug("tmx-correlation-id found in tracking filter: {}. ", 
 					filterUtils.getCorrelationId(requestHeaders));

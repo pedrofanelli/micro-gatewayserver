@@ -22,6 +22,12 @@ public class FilterUtils {
 	public static final String POST_FILTER_TYPE = "post";
 	public static final String ROUTE_FILTER_TYPE = "route";
 	
+	/**
+	 * Extrae el valor almacenado en el Header CORRELATION_ID si es que existe
+	 * 
+	 * @param requestHeaders
+	 * @return
+	 */
 	public String getCorrelationId(HttpHeaders requestHeaders){
 		if (requestHeaders.get(CORRELATION_ID) != null) {
 			List<String> header = requestHeaders.get(CORRELATION_ID);
