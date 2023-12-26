@@ -14,6 +14,12 @@ import org.springframework.web.server.ServerWebExchange;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * 
+ * To create a global filter in the Spring Cloud Gateway, we need to implement the GlobalFilter class and 
+ * then override the filter() method. This method contains the business logic that the filter implements.
+ * 
+ */
 @Order(1)
 @Component
 public class TrackingFilter implements GlobalFilter {
