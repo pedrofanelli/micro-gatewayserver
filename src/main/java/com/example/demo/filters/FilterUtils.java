@@ -6,6 +6,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
+/**
+ * A correlation ID is a unique ID that gets carried across all the microservices that are 
+ * executed when carrying out a customer request. A correlation ID allows us to trace the chain of events that 
+ * occur as a call goes through a series of microservice calls.
+ */
 @Component
 public class FilterUtils {
 
