@@ -73,6 +73,8 @@ Ahora, todo lo que pase por el Gateway pasará por este filtro! Entonces generam
  
  Finalmente, al finalizar todo el circuito, crearemos un filtro en el Gateway, como el actual, pero para controlar la finalización del circuito.
 
+Existen 2 tipos de filtros. Los tracking y response filters, al nivel del Gateway que son implementados usando clases específicas del Gateway. Luego, para los filtros individuales de cada microservicio se utilizan lógicas muy parecidas pero filtros provenientes de jakarta.servlet.
 
+El sistema de almacenamiento de los datos del usuario en el "UserContext" en el thread-local, es muy similar y sigue la misma lógica que el Security Context usando Spring Security.
 
 
