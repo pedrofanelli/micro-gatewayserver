@@ -21,7 +21,19 @@ import reactor.core.publisher.Mono;
  * 
  * Ahora, todo lo que pase por el Gateway pasará por este filtro! Entonces generamos un Correlation ID la primera vez que se 
  * ingresa al Gateway y se transferirá en toda la cadena de microservicios, representando el mismo ID. Es una forma de 
- * controlar el flujo entre los microservicios. EN REALIDAD LO AGREGAREMOS A UN CONTEXTO, CONTINUARA...
+ * controlar el flujo entre los microservicios.
+ * 
+ * Lo que hace es inyectar el Correlation ID al Header a cualquier request que pase por este Gateway. 
+ * 
+ * Luego, cada microservicio, de forma aislada e independiente, formará sus UserContextFilters, es decir,
+ * sus propios filtros, que se encargarán de tomar el Correlation ID que fue agregado por nosotros en 
+ * este filtro, y lo agregará al CONTEXTO (un thread-local). Una vez agregado, ese microservicio podrá
+ * usar esa variable como quiera. Es una variable aislada, dependiente del thread específico del request.
+ * 
+ * Al finalizar ese microservicio, la variable se agrega a cualquier request que se realice, al header.
+ * 
+ * Finalmente, al finalizar todo el circuito, crearemos un filtro en el Gateway, como el actual, pero 
+ * para controlar la finalización del circuito.
  * 
  */
 @Order(1)
