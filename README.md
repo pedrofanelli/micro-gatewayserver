@@ -59,3 +59,20 @@ We will build 2 filters:
 
 3. The RESPONSE FILTER is a post-filter that injects the correlation ID associated with the service call into the HTTP response header sent to the client. This way, the client will have access to the correlation ID associated with the request.
 
+
+To create a global filter in the Spring Cloud Gateway, we need to implement the GlobalFilter class and 
+then override the filter() method. This method contains the business logic that the filter implements. 
+
+Ahora, todo lo que pase por el Gateway pasará por este filtro! Entonces generamos un Correlation ID la primera vez que se ingresa al Gateway y se transferirá en toda la cadena de microservicios, representando el mismo ID. Es una forma de controlar el flujo entre los microservicios. 
+ 
+ Lo que hace es inyectar el Correlation ID al Header a cualquier request que pase por este Gateway. 
+ 
+ Luego, cada microservicio, de forma aislada e independiente, formará sus UserContextFilters, es decir, sus propios filtros, que se encargarán de tomar el Correlation ID que fue agregado por nosotros en este filtro, y lo agregará al CONTEXTO (un thread-local). Una vez agregado, ese microservicio podrá usar esa variable como quiera. Es una variable aislada, dependiente del thread específico del request.
+ 
+ Al finalizar ese microservicio, la variable se agrega a cualquier request que se realice, al header.
+ 
+ Finalmente, al finalizar todo el circuito, crearemos un filtro en el Gateway, como el actual, pero para controlar la finalización del circuito.
+
+
+
+
