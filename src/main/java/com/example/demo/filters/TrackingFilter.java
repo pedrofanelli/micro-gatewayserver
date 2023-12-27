@@ -19,6 +19,10 @@ import reactor.core.publisher.Mono;
  * To create a global filter in the Spring Cloud Gateway, we need to implement the GlobalFilter class and 
  * then override the filter() method. This method contains the business logic that the filter implements.
  * 
+ * Ahora, todo lo que pase por el Gateway pasará por este filtro! Entonces generamos un Correlation ID la primera vez que se 
+ * ingresa al Gateway y se transferirá en toda la cadena de microservicios, representando el mismo ID. Es una forma de 
+ * controlar el flujo entre los microservicios. EN REALIDAD LO AGREGAREMOS A UN CONTEXTO, CONTINUARA...
+ * 
  */
 @Order(1)
 @Component
